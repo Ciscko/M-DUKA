@@ -25,6 +25,11 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
-        "bootstrap-icons": "^1.1.0"
+        "bootstrap-icons": "^1.1.0",
+        "formik": "^2.2.5",
+        "materialize-css": "^1.0.0-rc.2",
+        "react-paginate": "^6.5.0",
+        "react-router-dom": "^5.2.0",
+        "yup": "^0.31.1"
     }
 }

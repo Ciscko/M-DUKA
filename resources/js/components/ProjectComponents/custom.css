@@ -1,0 +1,23 @@
+html{
+    background-image: url('http://localhost:8000/images/shop.jpg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
+  .main-card {
+    height : 100%;
+    min-height: 100vh;
+    margin-top : -1%;
+    color : black;
+    background : white;
+    padding-top : 1%;
+    padding-bottom: 5%;
+    margin-left : 0%; 
+    margin-right : 1%;
+    display: inline-block;
+    width:100%;
+  }
+ .bold{
+   font-weight: 900;
+ }

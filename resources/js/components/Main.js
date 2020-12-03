@@ -1,24 +1,24 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import NavBar from './NavBar';
-import Alert  from './Alert';
-import Toast  from './Toast';
-
+import React, { createContext, useState } from 'react';
+import { BrowserRouter } from 'react-router-dom'
+import App from './App';
+export const AppContext = createContext()
 function Main() {
+    const [ loggedIn, setLoggedIn ] = useState(false)
+    const [ submitting, setSubmitting ] = useState(false)
     return (
         <>
-        <NavBar/>
-        <br></br><br></br>
-        <Toast message="Submitted successfully."/>
-        <div className="row justify-content-center">
-                <div className="col-md-6 col-lg-6 col-sm-8 col-xs-10"> <Alert/></div>
-        </div>
+            <AppContext.Provider value={{ loggedIn, setLoggedIn, submitting, setSubmitting }}>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </AppContext.Provider>  
         </>
     );
 }
 
 export default Main;
 
-if (document.getElementById('main')) {
-    ReactDOM.render(<Main />, document.getElementById('main'));
+if (document.getElementById('mainapp')) {
+    ReactDOM.render(<Main />, document.getElementById('mainapp'));
 }

@@ -45,7 +45,7 @@ const Navigation = ( { history, content, options, navclass, children }) => {
                                 { children }
                             </li>
                             <li>
-                                <a onClick= {() => logout()}>Logout</a>
+                                <a className="orange-text" onClick= {() => logout()}>Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -63,7 +63,7 @@ const Navigation = ( { history, content, options, navclass, children }) => {
                     })
                 }
                 <li>
-                    <a className="white-text" onClick= {() => logout()}>Logout</a>
+                    <a className="red-text" onClick= {() => logout()}>Logout</a>
                 </li>
                 <li className=""></li>
             </ul>

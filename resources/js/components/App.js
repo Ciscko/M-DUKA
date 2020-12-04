@@ -8,6 +8,7 @@ import Preloader from './Preloader';
 import PrivateRoute from './PrivateRoute'
 import Register from './ProjectComponents/Register';
 import Shop from './ProjectComponents/Shop';
+import Reports from './ProjectComponents/Reports';
 
 
 const App = () => {
@@ -37,6 +38,11 @@ const App = () => {
             <PrivateRoute exact path="/ui">
                 <NavigationWrapper>
                     <Shop/>
+                </NavigationWrapper>
+            </PrivateRoute>
+            <PrivateRoute exact path="/ui/reports">
+                <NavigationWrapper>
+                    <Reports/>
                 </NavigationWrapper>
             </PrivateRoute>
         </Switch>

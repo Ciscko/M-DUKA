@@ -10,11 +10,11 @@ const NavigationWrapper = ({children}) => {
         logo: `${authService.staticUrl}images/office.jpg`,
         items: [
             { link: '/ui', title: 'Shop' },
-            { link: '/ui/register', title: 'Register' }
+            { link: '/ui/reports', title: 'Reports' },
         ]
     }
     const dropdownItems = [
-        // { link: '/admin', title: 'Dashboard' },
+         
         { link: '/ui/register', title: 'Register' },
     
     ]

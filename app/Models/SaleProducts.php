@@ -10,7 +10,7 @@ class SaleProducts extends Model
     use HasFactory;
     
     protected $fillable = [
-        'sale_id', 'product_id', 'product_name', 'qty', 'sprice', 'bprice'
+        'sales_id', 'product_id', 'product_name', 'qty', 'sprice', 'bprice'
     ];
 
     protected $hidden = [

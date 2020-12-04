@@ -33,7 +33,7 @@ const Shop = (props) => {
         tab = M.Tabs.getInstance(tabRef.current)
     }, [time])
 
-    
+
 
     const sell = (values) => {
         setCurrentProduct({
@@ -44,17 +44,17 @@ const Shop = (props) => {
         const tab = M.Tabs.getInstance(tabRef.current)
         let flag = false;
         let cartA = cartS
-        for(let i in cartA){
-            if(cartA[i].id === values[0]){
-                cartA[i].qty = cartA[i].qty+1
+        for (let i in cartA) {
+            if (cartA[i].id === values[0]) {
+                cartA[i].qty = cartA[i].qty + 1
                 flag = true
             }
         }
-        
-        if(flag){
+
+        if (flag) {
             setCart([...cartA])
             setCQty(cartS.length)
-        }else{
+        } else {
             setCart([...cartS, {
                 id: values[0], name: values[1], category: values[2],
                 brand: values[3], selling: values[4], buying: values[5],
@@ -128,24 +128,30 @@ const Shop = (props) => {
     }
 
     const setQty = (e, id) => {
-        let cartA = cartS
-        for(let i in cartA){
-            if(cartA[i].id === id){
-                cartA[i].qty = e.target.value
+        if (e.target.value !== null || e.target.value !== 0) {
+            let cartA = cartS
+            for (let i in cartA) {
+                if (cartA[i].id === id) {
+                    cartA[i].qty = e.target.value
+                }
             }
+            setCart([...cartA])
         }
-        setCart([...cartA])
+
     }
 
     const setPrice = (e, id) => {
-        let cartA = cartS
-        for(let i in cartA){
-            if(cartA[i].id === id){
-                cartA[i].selling = e.target.value
+        if (e.target.value !== null || e.target.value !== 0) {
+            let cartA = cartS
+            for (let i in cartA) {
+                if (cartA[i].id === id) {
+                    cartA[i].selling = e.target.value
+                }
             }
+            setCart([...cartA])
         }
-        setCart([...cartA])
     }
+
     const remove = (id) => {
         let cartA = cartS.filter((item) => {
             return id !== item.id
@@ -157,22 +163,23 @@ const Shop = (props) => {
         setSubmiting(true)
         let url = `${authService.otherUrl}`
         Axios.get(`${url}sale/create`, {
-            headers : {
-                Authorization : `Bearer ${getToken()}`
+            headers: {
+                Authorization: `Bearer ${getToken()}`
             }
         }).then(res => {
+            //console.log('SALE ID',res.data.sale.id)
             let sale_id = res.data.sale.id
-            for(let r in cartS){ 
+            for (let r in cartS) {
                 Axios.post(`${url}sale/checkout`, {
-                    sale_id: sale_id,
-                    product_id  : cartS[r].id,
-                    product_name : cartS[r].name,
-                    qty  : cartS[r].qty,
-                    sprice : cartS[r].selling,
-                    bprice : cartS[r].buying
+                    sales_id: sale_id,
+                    product_id: cartS[r].id,
+                    product_name: cartS[r].name,
+                    qty: cartS[r].qty,
+                    sprice: cartS[r].selling,
+                    bprice: cartS[r].buying
                 }, {
-                    headers : {
-                        Authorization : `Bearer ${getToken()}`
+                    headers: {
+                        Authorization: `Bearer ${getToken()}`
                     }
                 }).then(res => {
                     console.log(res)
@@ -181,13 +188,13 @@ const Shop = (props) => {
                     tab = M.Tabs.getInstance(tabRef.current)
                     tab.select('main')
                 }).catch(err => console.log(err))
-            } 
+            }
         }).catch(err => {
             console.log(err)
             setSubmiting(false)
         })
 
-         
+
     }
 
     return (
@@ -196,10 +203,10 @@ const Shop = (props) => {
                 <div className="container center">
                     <h4 className="center">Shop</h4><hr></hr>
                     <ul className="tabs tabs-fixed-width tab-demo z-depth-1" ref={tabRef}>
-                        <li className="tab"><a className="active" href="#main"><i  className="material-icons">list</i></a></li>
+                        <li className="tab"><a className="active" href="#main"><i className="material-icons">list</i></a></li>
                         <li className="tab"><a href="#form">Form</a></li>
                         <li className="tab"><a href="#view">View </a></li>
-                        <li className="tab"><a href="#cart"> <i  className="material-icons">shopping_cart</i> { cartS.length }</a></li>
+                        <li className="tab"><a href="#cart"> <i className="material-icons">shopping_cart</i> {cartS.length}</a></li>
                     </ul>
                     <div id="main" className="col s12">
                         <Products columns={paginatedColumns} sellProp={sell} editProp={edit} editMode={time} />
@@ -270,57 +277,57 @@ const Shop = (props) => {
                     <div id="cart" className="col s12">
                         <div className="card" style={{ 'overflowX': 'auto' }}>
                             {
-                               submiting ? 
-                               <Preloader message="Processing"/>
-                               :
-                               cartS.length > 0 ?
-                               <div ><br></br>
-                                   
-                                   <table className="highlight centered">
-                                       <thead>
-                                           <tr>
-                                               <th>Product Name</th>
-                                               <th>Quantity</th>
-                                               <th>Price</th>
-                                               <th>Sub</th>
-                                               <th>Action</th>
-                                           </tr>
-                                       </thead>
-                                       <tbody>
-                                           {
-                                               cartS.map((item, index) => {
-                                                   return (
-                                                       <tr key={index}>
-                                                           <td>
-                                                               {item.name}
-                                                           </td>
-                                                           <td><input style={{'maxWidth': '50px'}} onChange={(e) => setQty(e, item.id)} className="browser-default" type="number" value={item.qty} name="quaty" /></td>
-                                                           <td>
-                                                           <input style={{'maxWidth': '80px'}} onChange={(e) => setPrice(e, item.id)} className="browser-default" type="number" value={item.selling} name="price" />
-                                        
-                                                           </td>
-                                                           <td>
-                                                               {item.selling * item.qty}
-                                                           </td>
-                                                           <td>
-                                                               <b onClick={() => remove(item.id)} className="text-black">
-                                                                   X
+                                submiting ?
+                                    <Preloader message="Processing" />
+                                    :
+                                    cartS.length > 0 ?
+                                        <div ><br></br>
+
+                                            <table className="highlight centered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                        <th>Sub</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        cartS.map((item, index) => {
+                                                            return (
+                                                                <tr key={index}>
+                                                                    <td>
+                                                                        {item.name}
+                                                                    </td>
+                                                                    <td><input style={{ 'maxWidth': '50px' }} onChange={(e) => setQty(e, item.id)} className="browser-default" type="number" value={item.qty} name="quaty" /></td>
+                                                                    <td>
+                                                                        <input style={{ 'maxWidth': '80px' }} onChange={(e) => setPrice(e, item.id)} className="browser-default" type="number" value={item.selling} name="price" />
+
+                                                                    </td>
+                                                                    <td>
+                                                                        {item.selling * item.qty}
+                                                                    </td>
+                                                                    <td>
+                                                                        <b onClick={() => remove(item.id)} className="text-black">
+                                                                            X
                                                                </b>
-                                                           </td>
-                                                       </tr>
-                                                   );
-                                               })
+                                                                    </td>
+                                                                </tr>
+                                                            );
+                                                        })
 
-                                           }
-                                       </tbody>
-                                   </table><br></br>
-                                   <button onClick={() => { setCart([]) }} className="btn pink">Clear <i className="material-icons right">sync</i></button>
-                                   <button onClick={() => { finishSale() }} className="btn purple">Sell <i className="material-icons right">send</i></button>
-                                   <br></br><br></br>
-                               </div>
+                                                    }
+                                                </tbody>
+                                            </table><br></br>
+                                            <button onClick={() => { setCart([]) }} className="btn pink">Clear <i className="material-icons right">sync</i></button>
+                                            <button onClick={() => { finishSale() }} className="btn purple">Sell <i className="material-icons right">send</i></button>
+                                            <br></br><br></br>
+                                        </div>
 
-                               :
-                               <Preloader message='No items in the cart yet' />
+                                        :
+                                        <Preloader message='No items in the cart yet' />
                             }
                         </div>
 

@@ -12,6 +12,8 @@ use App\Models\SaleProducts;
 
 
 use App\Http\Resources\ProductsResource;
+use App\Http\Resources\SalesCollection;
+use App\Http\Resources\Sales as SalesResource;
 
 class ProductController extends Controller
 
@@ -134,7 +136,7 @@ class ProductController extends Controller
 
     public function checkout(Request $request){
        $validator =  Validator::make($request->all(), [
-            'sale_id' => 'required',
+            'sales_id' => 'required',
              'product_id' =>'required',
               'product_name' => 'required', 
               'qty' => 'required',
@@ -153,12 +155,42 @@ class ProductController extends Controller
     public function create_sale(Request $request){
         $user = auth()->user()->id;
         $sale = [
-            'time' => date("Y-m-d h:i:sa"), 'user' => $user
+            'time' => date("Y-m-d"), 'user' => $user
         ];
         if($s = Sales::create($sale)){
             return response()->json(['sale' => $s], 200);
         }
         return response()->json(['error' => 'Could not create sale.'], 400);
+    }
+
+    public function sales_report(Request $request, $mode){
+        if($mode === 'single'){
+            $validator = Validator::make($request->all(), [
+                'day' => 'required'
+            ]);
+            if($validator->fails()){
+                return response()->json(['status' => $validator->errors()]);
+            }
+
+            return new SalesCollection(Sales::where('time', $request->day)->get());
+            //return response()->json(['status' => 'single query'], 200);
+        }
+        else{
+            $validator = Validator::make($request->all(), [
+                'start' => 'required', 'end' => 'required'
+            ]);
+            if($validator->fails()){
+                return response()->json(['status' => $validator->errors()]);
+            }
+            return new SalesCollection(Sales::whereBetween('time', [$request->start, $request->end])->get());
+        }
+    }
+
+    public function sale_report(Request $request, $id){
+        if($id !== null){
+            return new SalesResource(Sales::find($id));
+        }
+        return response()->json(['errors' => 'No Sale id parameter was sent'], 200);
     }
     /**
      * Remove the specified resource from storage.

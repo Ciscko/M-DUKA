@@ -11,10 +11,13 @@ class Sales extends Model
 
     protected $fillable = [
         'time', 'user'
-        
     ];
 
     protected $hidden = [
         'created_at', 'updated_at'
     ];
+
+    public function sale_products(){
+        return $this->hasMany('App\Models\SaleProducts');
+    }
 }

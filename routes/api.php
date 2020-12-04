@@ -36,3 +36,7 @@ Route::group(['prefix'=> 'product'], function(){
 
 Route::post('sale/checkout', [ProductController::class, 'checkout']);
 Route::get('sale/create', [ProductController::class, 'create_sale']);
+Route::post('sales/report/{mode}', [ProductController::class, 'sales_report']);
+Route::get('sale/report/{id}', [ProductController::class, 'sale_report']);
+
+

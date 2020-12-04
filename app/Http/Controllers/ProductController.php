@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Validator;
 
 use App\Models\Product;
+use App\Models\Sales;
+use App\Models\SaleProducts;
+
 
 use App\Http\Resources\ProductsResource;
 
@@ -129,6 +132,34 @@ class ProductController extends Controller
         }
     }
 
+    public function checkout(Request $request){
+       $validator =  Validator::make($request->all(), [
+            'sale_id' => 'required',
+             'product_id' =>'required',
+              'product_name' => 'required', 
+              'qty' => 'required',
+               'sprice' => 'required',
+                'bprice' => 'required'
+        ]);
+        if($validator->fails()){
+            return response()->json(['errors' => $validator->errors()]);
+        }
+        if(SaleProducts::create($request->all())){
+            return response()->json(['status' => 'Added Successfully.']);
+        }
+        return response()->json(['errors' => 'Could not add sale items to db.']);
+    }
+
+    public function create_sale(Request $request){
+        $user = auth()->user()->id;
+        $sale = [
+            'time' => date("Y-m-d h:i:sa"), 'user' => $user
+        ];
+        if($s = Sales::create($sale)){
+            return response()->json(['sale' => $s], 200);
+        }
+        return response()->json(['error' => 'Could not create sale.'], 400);
+    }
     /**
      * Remove the specified resource from storage.
      *

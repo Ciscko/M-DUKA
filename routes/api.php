@@ -33,3 +33,6 @@ Route::group(['prefix'=> 'product'], function(){
     Route::post('update/{id}', [ProductController::class, 'update']);
     Route::post('delete/{id}', [ProductController::class, 'destroy']);
 });
+
+Route::post('sale/checkout', [ProductController::class, 'checkout']);
+Route::get('sale/create', [ProductController::class, 'create_sale']);

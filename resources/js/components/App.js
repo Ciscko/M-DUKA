@@ -9,6 +9,7 @@ import PrivateRoute from './PrivateRoute'
 import Register from './ProjectComponents/Register';
 import Shop from './ProjectComponents/Shop';
 import Reports from './ProjectComponents/Reports';
+import Stock from './ProjectComponents/Stock';
 
 
 const App = () => {
@@ -38,6 +39,11 @@ const App = () => {
             <PrivateRoute exact path="/ui">
                 <NavigationWrapper>
                     <Shop/>
+                </NavigationWrapper>
+            </PrivateRoute>
+            <PrivateRoute path="/ui/stock">
+                <NavigationWrapper>
+                    <Stock/>
                 </NavigationWrapper>
             </PrivateRoute>
             <PrivateRoute exact path="/ui/reports">

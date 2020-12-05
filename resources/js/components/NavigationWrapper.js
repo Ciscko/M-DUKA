@@ -11,6 +11,7 @@ const NavigationWrapper = ({children}) => {
         items: [
             { link: '/ui', title: 'Shop' },
             { link: '/ui/reports', title: 'Reports' },
+            { link: '/ui/stock', title: 'Stock' }
         ]
     }
     const dropdownItems = [

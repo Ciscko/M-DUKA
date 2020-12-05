@@ -97,14 +97,15 @@ class PaginatedTable extends React.Component {
             <div className="section">
                 <div className="">
                     <div className="input-field" style={{'paddingLeft': '30px', 'paddingRight': '30px'}}>
-                        <label htmlFor="filter" style={{'paddingLeft': '30px', 'paddingRight': '30px'}}>Search...</label>
+                    <i className="material-icons prefix">search</i>
                         <input onChange={(e) => this.filterRows(e.target.value)} name="filter" value={this.state.searchVal} type="text" id="filter" />
+                        <label htmlFor="filter" style={{'paddingLeft': '30px', 'paddingRight': '30px'}}>Search...</label>
                     </div>
                 </div>
 
                 {
                     (this.data.length > 0) ?
-                        <>
+                        <div style={{ 'overflowX': 'auto' }}>
                             <table className="responsive-table highlight centered">
                                 <thead>
                                     <tr>
@@ -187,7 +188,7 @@ class PaginatedTable extends React.Component {
                                     />
                                 </div>
                             </div>
-                        </>
+                        </div>
                         :
                         <div className="center container">
                             <p>No data available!</p>

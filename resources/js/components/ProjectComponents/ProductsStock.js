@@ -11,7 +11,7 @@ import Axios from 'axios';
 import authService from '../../authService';
 import { getToken } from '../../authService';
 
-class Products extends React.Component {
+class ProductsStock extends React.Component {
     constructor(props) {
         super(props)
         this.columns = props.columns
@@ -29,7 +29,7 @@ class Products extends React.Component {
         this.handlePageCount = this.handlePageCount.bind(this)
         this.filterRows = this.filterRows.bind(this)
         this.edit = this.edit.bind(this)
-        this.sell = this.sell.bind(this)
+        this.view = this.view.bind(this)
 
         this.tokenSource = Axios.CancelToken.source()
     }
@@ -75,7 +75,7 @@ class Products extends React.Component {
         }
     }
 
-    sell(values) {
+    view(values) {
         if (values.length > 0) {
             this.props.sellProp(values)
         }
@@ -177,7 +177,6 @@ class Products extends React.Component {
 
                             <div className="">
                                 <div className="input-field" style={{ 'paddingLeft': '30px', 'paddingRight': '30px' }}>
-                                    
                                     <i className="material-icons prefix">search</i>
                                     <input onChange={(e) => this.filterRows(e.target.value)} name="filter" value={this.state.searchVal} type="text" id="filter" />
                                     <label htmlFor="filter" style={{ 'paddingLeft': '30px', 'paddingRight': '30px' }}>Search...</label>
@@ -194,7 +193,7 @@ class Products extends React.Component {
                                                         {
                                                             this.columns.map((header, index) => {
                                                                 return (
-                                                                    <th  onClick={() => this.sortBy(header.key)} key={index}>
+                                                                    <th style={{ 'minWidth': '130px' }} onClick={() => this.sortBy(header.key)} key={index}>
                                                                         {header.value}
                                                                         <span>
                                                                             {this.state.activeSort === header.key ?
@@ -208,7 +207,7 @@ class Products extends React.Component {
                                                                 )
                                                             })
                                                         }
-                                                        <th style={{ 'minWidth': '100px' }}>Actions</th>
+                                                        <th style={{ 'minWidth': '200px' }}>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -217,30 +216,24 @@ class Products extends React.Component {
                                                             return (
                                                                 <tr key={index}>
                                                                     {
-                                                                        Object.entries(row).slice(1).map((cellvalue, index, row) => {
-                                                                             //console.log(Object.entries(row)) 
-                                                                              if(cellvalue[0] === 'category' || cellvalue[0] === 'brand'|| cellvalue[0] === 'desc' || cellvalue[0] === 'qty' || cellvalue[0] === 'selling') {
-
-                                                                              }else{
-                                                                                return (
-                                                                                    <td key={index}>
-                                                                                        {cellvalue[1]}
-                                                                                    </td>
-                                                                                )
-                                                                              }
-                                                                                
-                                                                            
-                                                                            
+                                                                        Object.values(row).slice(1).map((cellvalue, index) => {
+                                                                            return (
+                                                                                <td key={index}>
+                                                                                    {cellvalue}
+                                                                                </td>
+                                                                            )
                                                                         })
                                                                     }
                                                                     <td>
-                                                                        
-                                                                        
-                                                                        <a onClick={() => this.sell(Object.values(row))} className="btn purple">
-                                                                           Sell<i className="material-icons right">near_me</i>         
+                                                                        <a onClick={() => this.confirmDelete(Object.values(row)[0])} className="btn red">
+                                                                            <i className="material-icons">delete</i>
                                                                         </a>
-
-
+                                                                        <a onClick={() => this.edit(Object.values(row))} className="btn teal">
+                                                                            <i className="material-icons">edit</i>
+                                                                        </a>
+                                                                        <a onClick={() => this.view(Object.values(row))} className="btn purple">
+                                                                            <i className="material-icons">remove_red_eye</i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
                                                             )
@@ -293,4 +286,4 @@ class Products extends React.Component {
         );
     }
 }
-export default Products;
+export default ProductsStock;

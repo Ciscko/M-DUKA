@@ -35,7 +35,7 @@ const Navigation = ( { history, content, options, navclass, children }) => {
                             <i className="material-icons">menu</i>
                         </a>
                         
-                        <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        <ul id="nav-mobile" className="right ">
                             {
                                 content.items.map((item, index) => {
                                     return <li key={index}><Link to={item.link}>{item.title}</Link></li>
@@ -79,7 +79,7 @@ const Navigation = ( { history, content, options, navclass, children }) => {
                         <i className="material-icons">menu</i>
                     </a>
                     
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
+                    <ul id="nav-mobile" className="right ">
                         {
                             content.items.map((item, index) => {
                                 return <li key={index}><Link to={item.link}>{item.title}</Link></li>

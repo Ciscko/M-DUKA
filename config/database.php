@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-$db_url = parse_url('postgres://tlxfxjagelbnhe:93546b9ae1b8511606f6450b56c3303c3d7fe7d04c6f4e2170d1bda65e9f3bbc@ec2-3-224-38-18.compute-1.amazonaws.com:5432/d16tgmbrtor030');
+$db_url = parse_url('postgres://tlxfxjagelbnhe:93546b9ae1b8511606f6450b56c3303c3d7fe7d04c6f4e2170d1bda65e9f3bbc@ec2-3-224-38-18.compute-1.amazonaws.com:5432/d16tgmbrtor030?charset=UTF-8');
 
 return [
 
@@ -17,9 +17,9 @@ return [
     |
     */
 
-    //'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' => env('DB_CONNECTION', 'pgsql'),
 
-    'default' => 'pgsql',
+    
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -74,7 +74,7 @@ return [
              //'database' => env('DB_DATABASE', 'forge'),
              //'username' => env('DB_USERNAME', 'forge'),
               //'password' => env('DB_PASSWORD', ''),
-            'url' => 'postgres://tlxfxjagelbnhe:93546b9ae1b8511606f6450b56c3303c3d7fe7d04c6f4e2170d1bda65e9f3bbc@ec2-3-224-38-18.compute-1.amazonaws.com:5432/d16tgmbrtor030',
+            'url' => 'postgres://tlxfxjagelbnhe:93546b9ae1b8511606f6450b56c3303c3d7fe7d04c6f4e2170d1bda65e9f3bbc@ec2-3-224-38-18.compute-1.amazonaws.com:5432/d16tgmbrtor030?charset=UTF-8',
             'host' => $db_url["host"],
             'port' => $db_url["port"],
             'database' => ltrim($db_url["path"],"/" ),
@@ -85,7 +85,7 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
-            'client_encoding' => 'utf8'
+            //'client_encoding' => 'utf8'
             
         ],
 

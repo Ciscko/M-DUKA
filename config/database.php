@@ -67,20 +67,24 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            //'database' => env('DB_DATABASE', 'forge'),
+            //'url' => env('DATABASE_URL'),
+            //'host' => env('DB_HOST', '127.0.0.1'),
+            //'port' => env('DB_PORT', '5432'),
+             //'database' => env('DB_DATABASE', 'forge'),
+             //'username' => env('DB_USERNAME', 'forge'),
+              //'password' => env('DB_PASSWORD', ''),
+            'url' => 'postgres://tlxfxjagelbnhe:93546b9ae1b8511606f6450b56c3303c3d7fe7d04c6f4e2170d1bda65e9f3bbc@ec2-3-224-38-18.compute-1.amazonaws.com:5432/d16tgmbrtor030',
+            'host' => $db_url["host"],
+            'port' => $db_url["port"],
             'database' => ltrim($db_url["path"],"/" ),
-            //'username' => env('DB_USERNAME', 'forge'),
             'username' => $db_url["user"],
             'password' => $db_url["pass"],
-            //'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
+            'client_encoding' => 'utf8'
         ],
 
         'sqlsrv' => [

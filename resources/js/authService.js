@@ -1,9 +1,9 @@
 import Axios from "axios"
 
 export default {
-    baseUrl : 'http://localhost:8000/api/auth/',
-    staticUrl : 'http://localhost:8000/',
-    otherUrl : 'http://localhost:8000/api/',
+    baseUrl : 'https://git.heroku.com/tranquil-citadel-61482.git/api/auth/',
+    staticUrl : 'https://git.heroku.com/tranquil-citadel-61482.git/',
+    otherUrl : 'https://git.heroku.com/tranquil-citadel-61482.git/api/',
     
     authenticate(cb){
         Axios.get(`${this.baseUrl}userprofile`, {
